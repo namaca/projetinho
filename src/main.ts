@@ -18,8 +18,21 @@ Deno.serve({ port: 3000 }, async (req) => {
     console.log(result.rows); // [[1, 'Carlos'], [2, 'John'], ...]
     await client.end();
    
-    
-    const response = new Response("<html> Hello </html>", {
+    const html = `
+    <html>
+        <head>
+        <title>Alunos</title>
+        </head>
+        <body>
+        <h1>Alunos</h1>
+        <ul>
+            ${result.rows.map((row) => `<li>${row[1]}</li>`).join("")}
+        </ul>
+        </body>
+    </html>
+    `;
+
+    const response = new Response(html, {
         status: 200,
         headers: {
           "content-type": "text/html",
