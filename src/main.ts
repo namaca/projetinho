@@ -1,7 +1,7 @@
 import { Client } from "https://deno.land/x/postgres/mod.ts";
 
 Deno.serve({ port: 3000 }, async (req) => {
-    console.log(req)
+    console.log(req.headers.get('host'))
     const client = new Client({
         user: Deno.env.get("DB_USER"),
         database: Deno.env.get("DB_NAME"),
