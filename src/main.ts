@@ -47,7 +47,7 @@ Deno.serve({ port: 3000 }, async (req) => {
     const response = new Response(html, {
         status: 200,
         headers: {
-          "content-type": "text/html",
+            "content-type": "text/html; charset=utf-8",
         },
     });
 
