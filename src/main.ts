@@ -1,7 +1,6 @@
 import { Client } from "https://deno.land/x/postgres/mod.ts";
 
-Deno.serve({ port: 3000 }, async () => {
-
+Deno.serve({ port: 3000 }, async (req) => {
     let result = {};
     const client = new Client({
         user: Deno.env.get("DB_USER"),
@@ -12,14 +11,11 @@ Deno.serve({ port: 3000 }, async () => {
     });
 
     await client.connect();
-    
-    {
+
     result = await client.queryArray("SELECT * FROM alunos");
     console.log(result.rows); // [[1, 'Carlos'], [2, 'John'], ...]
-    }
 
     await client.end();
 
-    return result
-    
+    req.respond({ body: JSON.stringify(result.rows) });
 });
