@@ -1,5 +1,5 @@
 import { Client } from "https://deno.land/x/postgres/mod.ts";
-
+console.log('omdoasd')
 Deno.serve({ port: 3000 }, async (req) => {
     console.log(req.headers.get('host'))
 
