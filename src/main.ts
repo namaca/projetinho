@@ -2,6 +2,7 @@ import { Client } from "https://deno.land/x/postgres/mod.ts";
 
 Deno.serve({ port: 3000 }, async () => {
 
+    let result = {};
     const client = new Client({
         user: Deno.env.get("DB_USER"),
         database: Deno.env.get("DB_NAME"),
@@ -13,10 +14,12 @@ Deno.serve({ port: 3000 }, async () => {
     await client.connect();
     
     {
-    const result = await client.queryArray("SELECT * FROM alunos");
+    result = await client.queryArray("SELECT * FROM alunos");
     console.log(result.rows); // [[1, 'Carlos'], [2, 'John'], ...]
     }
-    
-    
+
     await client.end();
+
+    return result
+    
 });
