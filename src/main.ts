@@ -1,18 +1,15 @@
 import { Client } from "https://deno.land/x/postgres/mod.ts";
-import { load } from "https://deno.land/std@0.224.0/dotenv/mod.ts";
-
-const env = await load();
 
 Deno.serve({ port: 3000 }, async () => {
 
     const client = new Client({
-        user: env["DB_USER"],
-        database: env["DB_NAME"],
-        hostname: env["DB_HOST"],
+        user: Deno.env.get("DB_USER"),
+        database: Deno.env.get("DB_NAME"),
+        hostname: Deno.env.get("DB_HOST"),
         port: 5432,
-        password: env["DB_PASSWORD"],
+        password: Deno.env.get("DB_PASSWORD"),
     });
-    
+
     await client.connect();
     
     {
